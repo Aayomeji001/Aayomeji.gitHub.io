@@ -1,15 +1,15 @@
 /* Reset default margins and padding */
 body {
     margin: 0;
-    font-family: 'Poppins', sans-serif; /* Professional rental font */
-    background-color: #FFFFFF; /* White background */
-    color: #8B4513; /* Brown text */
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    color: #8B4513;
 }
 
 /* Style the header */
 header {
-    background-color: #8B4513; /* Brown */
-    color: #FFFFFF; /* White text */
+    background-color: #8B4513;
+    color: #FFFFFF;
     text-align: center;
     padding: 20px;
 }
@@ -24,18 +24,18 @@ header p {
 
 /* Style the navigation menu */
 nav {
-    background-color: #006400; /* Green */
+    background-color: #006400;
     padding: 10px;
     text-align: center;
 }
 nav a {
-    color: #FFFFFF; /* White text */
+    color: #FFFFFF;
     text-decoration: none;
     margin: 0 15px;
     font-weight: 400;
 }
 nav a:hover {
-    color: #8B4513; /* Brown on hover */
+    color: #8B4513;
 }
 
 /* Style the main content */
@@ -45,7 +45,7 @@ main {
 }
 main h2, main h3 {
     margin-top: 30px;
-    color: #8B4513; /* Brown for headings */
+    color: #8B4513;
     font-weight: 600;
 }
 main p {
@@ -56,30 +56,30 @@ main p {
 /* Style the form */
 form {
     margin: 20px auto;
-    max-width: 500px; /* Wider for readability */
+    max-width: 500px;
     text-align: left;
 }
 label {
     display: block;
-    margin: 15px 0 5px; /* More spacing */
-    color: #8B4513; /* Brown */
+    margin: 15px 0 5px;
+    color: #8B4513;
     font-weight: 600;
 }
 input, select, textarea {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #006400; /* Green border */
-    border-radius: 5px; /* Rounded corners */
+    border: 1px solid #006400;
+    border-radius: 5px;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 input[type="number"] {
-    width: 120px; /* Slightly wider */
+    width: 120px;
 }
 button {
-    background-color: #8B4513; /* Brown button */
-    color: #FFFFFF; /* White text */
+    background-color: #8B4513;
+    color: #FFFFFF;
     border: none;
     padding: 12px 25px;
     cursor: pointer;
@@ -89,10 +89,10 @@ button {
     font-weight: 600;
 }
 button:hover {
-    background-color: #006400; /* Green on hover */
+    background-color: #006400;
 }
 button:disabled {
-    background-color: #D2B48C; /* Light tan */
+    background-color: #D2B48C;
     cursor: not-allowed;
 }
 
@@ -105,7 +105,7 @@ button:disabled {
 #equipmentImage {
     width: 100%;
     height: auto;
-    border: 2px solid #006400; /* Green border */
+    border: 2px solid #006400;
     border-radius: 5px;
 }
 .fade-in {
@@ -127,27 +127,27 @@ button:disabled {
 #reviewList li {
     margin: 10px 0;
     padding: 10px;
-    background-color: #F5F5F5; /* Light grey */
+    background-color: #F5F5F5;
     border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 #reviewList button {
-    background-color: #8B4513; /* Brown */
+    background-color: #8B4513;
     padding: 5px 10px;
     font-size: 14px;
     border-radius: 5px;
 }
 #reviewList button:hover {
-    background-color: #006400; /* Green */
+    background-color: #006400;
 }
 #totalCost {
     text-align: left;
     max-width: 500px;
     margin: 20px auto;
     font-weight: 600;
-    color: #006400; /* Green */
+    color: #006400;
 }
 
 /* Style the popup */
@@ -180,11 +180,18 @@ button:disabled {
     width: auto;
     margin-right: 10px;
 }
+.popup-content ul {
+    list-style-type: none;
+    padding: 0;
+}
+.popup-content ul li {
+    margin: 5px 0;
+}
 
 /* Style the footer */
 footer {
-    background-color: #8B4513; /* Brown */
-    color: #FFFFFF; /* White text */
+    background-color: #8B4513;
+    color: #FFFFFF;
     text-align: center;
     padding: 20px;
     position: fixed;
@@ -197,5 +204,5 @@ footer a {
     text-decoration: none;
 }
 footer a:hover {
-    color: #006400; /* Green */
+    color: #006400;
 }

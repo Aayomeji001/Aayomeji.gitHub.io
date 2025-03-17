@@ -26,7 +26,7 @@
     <!-- Main Content -->
     <main>
         <h2>About Us</h2>
-        <p>We provide quality rentals for events and logistics in Ibadan—chairs, tables, canopies, drums, cooking pots, gas burners, and more. Book at the convenience of your home, and your order will be sent to Awosanyakudus71@gmail.com for us to process and deliver seamlessly!</p>
+        <p>We provide quality rentals for events and logistics in Ibadan—chairs, tables, canopies, drums, cooking pots, gas burners, and more. Book at the convenience of your home!</p>
 
         <!-- Booking Form -->
         <h2>Book Your Rentals</h2>
@@ -54,7 +54,7 @@
 
             <!-- Image Display -->
             <div id="imageDisplay" class="image-container">
-                <img id="equipmentImage" src="" alt="Select an item to see image">
+                <img id="equipmentImage" src="" alt="Select an item to see image" onerror="this.src='placeholder.jpg'; this.alt='Image not available';">
             </div>
 
             <button type="button" onclick="addToReview()">Add to Booking</button>
@@ -110,21 +110,31 @@
                     <textarea id="deliveryNotes" name="Delivery_Notes" rows="3" cols="30" placeholder="E.g., near the market"></textarea><br>
                 </div>
 
-                <button onclick="submitToWhatsApp()">Confirm & Pay via WhatsApp</button>
+                <button onclick="showSummary()">View Summary & Confirm</button>
                 <button onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Summary Popup -->
+        <div id="summaryPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h3>Booking Summary</h3>
+                <div id="summaryContent"></div>
+                <button onclick="submitToWhatsApp()">Confirm & Pay via WhatsApp</button>
+                <button onclick="closeSummary()">Back</button>
             </div>
         </div>
 
         <!-- Contact Section -->
         <h2>Contact Us</h2>
-        <p>Email: <a href="mailto:Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a></p>
+        <p>Email: <a href="Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a></p>
         <p>Mobile: 07064936343 | 09024296887</p>
     </main>
 
     <!-- Footer -->
     <footer>
         <p>© 2025 Eventease Rental Services, Apete, Awotan, Ibadan<br>
-        Email: <a href="mailto:Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a> | Mobile: 07064936343, 09024296887</p>
+        Email: <a href="Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a> | Mobile: 07064936343, 09024296887</p>
     </footer>
 
     <!-- JavaScript -->
@@ -188,13 +198,13 @@
             const imageDisplay = document.getElementById("imageDisplay");
 
             const imageMap = {
-                "canopies": "https://images.unsplash.com/photo-1560439517-e960a3ef5019",
-                "chairs": "https://images.unsplash.com/photo-1591115466960-4e8e624be9e0",
-                "tables": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-                "chair-covers": "https://images.unsplash.com/photo-1600585154526-990dced4366e",
-                "table-covers": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
-                "drums": "https://images.unsplash.com/photo-1513530534585-8b7f39a62b39",
-                "cooking-gas-burner": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+                "canopies": "canopies.jpg",
+                "chairs": "chairs.jpg",
+                "tables": "tables.jpg",
+                "chair-covers": "chair-covers.jpg",
+                "table-covers": "table-covers.jpg",
+                "drums": "drums.jpg",
+                "cooking-gas-burner": "cooking-gas-burner.jpg"
             };
 
             if (item && imageMap[item]) {
@@ -213,8 +223,8 @@
 
         function addToReview() {
             const item = document.getElementById("items").value;
-            const quantity = parseInt(document.getElementById("quantity").value);
-            if (!item || !quantity || quantity < 1 || (quantity > document.getElementById("quantity").max && document.getElementById("quantity").max)) {
+            const quantity = parseInt(document.getElementById("quantity").value, 10);
+            if (!item || isNaN(quantity) || quantity < 1 || (quantity > parseInt(document.getElementById("quantity").max) && document.getElementById("quantity").max)) {
                 alert("Please select an item and a valid quantity within the allowed range.");
                 return;
             }
@@ -266,8 +276,9 @@
             const token = document.getElementById("formToken").value;
             const name = document.getElementById("name").value;
 
-            if (parseInt(captcha) !== 8) {
-                alert("Incorrect answer to 5 + 3. Please try again.");
+            const captchaValue = parseInt(captcha, 10);
+            if (isNaN(captchaValue) || captchaValue !== 8) {
+                alert("Incorrect answer to 5 + 3. Please enter 8.");
                 return false;
             }
 
@@ -294,6 +305,37 @@
             document.getElementById("deliveryFields").style.display = show ? "block" : "none";
         }
 
+        function showSummary() {
+            const name = document.getElementById("name").value;
+            const date = document.getElementById("date").value;
+            const message = document.getElementById("message").value;
+            const logistics = document.querySelector('input[name="logistics"]:checked').value;
+            const city = document.getElementById("city").value;
+            const address = document.getElementById("address").value;
+            const deliveryNotes = document.getElementById("deliveryNotes").value;
+
+            let total = bookingItems.reduce((sum, b) => sum + b.price, 0);
+            let logisticsText = "No logistics (pickup)";
+            if (logistics === "yes") {
+                total += logisticsFee;
+                logisticsText = Logistics (₦${logisticsFee.toLocaleString()}, subject to change based on distance) to ${city}, ${address}${deliveryNotes ? " - " + deliveryNotes : ""};
+            }
+
+            const summaryContent = document.getElementById("summaryContent");
+            summaryContent.innerHTML = `
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Event Date:</strong> ${date}</p>
+                <p><strong>Items:</strong></p>
+                <ul>${bookingItems.map(b => <li>${b.text}</li>).join("")}</ul>
+                <p><strong>Delivery:</strong> ${logisticsText}</p>
+                <p><strong>Total Amount:</strong> ₦${total.toLocaleString()}</p>
+                <p><strong>Additional Requests:</strong> ${message || "None"}</p>
+            `;
+
+            document.getElementById("deliveryPopup").style.display = "none";
+            document.getElementById("summaryPopup").style.display = "block";
+        }
+
         function submitToWhatsApp() {
             const name = document.getElementById("name").value;
             const date = document.getElementById("date").value;
@@ -314,6 +356,7 @@
             let whatsappUrl = https://wa.me/2347064936343?text=${encodeURIComponent(whatsappMessage)};
 
             window.open(whatsappUrl, "_blank");
+            closeSummary();
             closePopup();
         }
 
@@ -323,6 +366,11 @@
             document.getElementById("deliveryNotes").value = "";
             document.querySelector('input[name="logistics"][value="no"]').checked = true;
             toggleDeliveryFields(false);
+        }
+
+        function closeSummary() {
+            document.getElementById("summaryPopup").style.display = "none";
+            document.getElementById("deliveryPopup").style.display = "block";
         }
     </script>
 </body>
