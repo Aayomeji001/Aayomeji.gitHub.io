@@ -1,0 +1,201 @@
+/* Reset default margins and padding */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Professional rental font */
+    background-color: #FFFFFF; /* White background */
+    color: #8B4513; /* Brown text */
+}
+
+/* Style the header */
+header {
+    background-color: #8B4513; /* Brown */
+    color: #FFFFFF; /* White text */
+    text-align: center;
+    padding: 20px;
+}
+header h1 {
+    margin: 0;
+    font-weight: 600;
+}
+header p {
+    margin: 5px 0;
+    font-size: 18px;
+}
+
+/* Style the navigation menu */
+nav {
+    background-color: #006400; /* Green */
+    padding: 10px;
+    text-align: center;
+}
+nav a {
+    color: #FFFFFF; /* White text */
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 400;
+}
+nav a:hover {
+    color: #8B4513; /* Brown on hover */
+}
+
+/* Style the main content */
+main {
+    padding: 20px;
+    text-align: center;
+}
+main h2, main h3 {
+    margin-top: 30px;
+    color: #8B4513; /* Brown for headings */
+    font-weight: 600;
+}
+main p {
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Style the form */
+form {
+    margin: 20px auto;
+    max-width: 500px; /* Wider for readability */
+    text-align: left;
+}
+label {
+    display: block;
+    margin: 15px 0 5px; /* More spacing */
+    color: #8B4513; /* Brown */
+    font-weight: 600;
+}
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #006400; /* Green border */
+    border-radius: 5px; /* Rounded corners */
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+input[type="number"] {
+    width: 120px; /* Slightly wider */
+}
+button {
+    background-color: #8B4513; /* Brown button */
+    color: #FFFFFF; /* White text */
+    border: none;
+    padding: 12px 25px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: 600;
+}
+button:hover {
+    background-color: #006400; /* Green on hover */
+}
+button:disabled {
+    background-color: #D2B48C; /* Light tan */
+    cursor: not-allowed;
+}
+
+/* Style the image display */
+.image-container {
+    margin: 20px auto;
+    max-width: 300px;
+    display: none;
+}
+#equipmentImage {
+    width: 100%;
+    height: auto;
+    border: 2px solid #006400; /* Green border */
+    border-radius: 5px;
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Style the review list and total cost */
+#reviewList {
+    list-style-type: none;
+    padding: 0;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+}
+#reviewList li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #F5F5F5; /* Light grey */
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#reviewList button {
+    background-color: #8B4513; /* Brown */
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+#reviewList button:hover {
+    background-color: #006400; /* Green */
+}
+#totalCost {
+    text-align: left;
+    max-width: 500px;
+    margin: 20px auto;
+    font-weight: 600;
+    color: #006400; /* Green */
+}
+
+/* Style the popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popup-content {
+    background: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: left;
+}
+.popup-content h3 {
+    color: #8B4513;
+    font-weight: 600;
+}
+.popup-content label {
+    margin: 10px 0;
+}
+.popup-content input[type="radio"] {
+    width: auto;
+    margin-right: 10px;
+}
+
+/* Style the footer */
+footer {
+    background-color: #8B4513; /* Brown */
+    color: #FFFFFF; /* White text */
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+}
+footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+footer a:hover {
+    color: #006400; /* Green */
+}

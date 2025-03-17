@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <title>Eventease Rental Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <h1>Eventease Rental Services</h1>
+        <p>Your One-Stop Rental Solution in Apete, Awotan, Ibadan</p>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav>
+        <a href="#home">Home</a> | 
+        <a href="#services">Rentals</a> | 
+        <a href="#contact">Contact Us</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <h2>About Us</h2>
+        <p>We provide quality rentals for events and logistics in Ibadan—chairs, tables, canopies, drums, cooking pots, gas burners, and more. Book at the convenience of your home, and your order will be sent to Awosanyakudus71@gmail.com for us to process and deliver seamlessly!</p>
+
+        <!-- Booking Form -->
+        <h2>Book Your Rentals</h2>
+        <form id="bookingForm" onsubmit="return validateAndShowDelivery(event)">
+            <label for="name">Full Name:</label><br>
+            <input type="text" id="name" name="Full_Name" required pattern="[A-Za-z\s]{2,50}" title="Letters and spaces only, 2-50 characters"><br>
+
+            <label for="date">Event Date:</label><br>
+            <input type="date" id="date" name="Event_Date" required min="2025-03-18"><br>
+
+            <label for="items">Items to Rent (Prices in ₦):</label><br>
+            <select id="items" name="Item_Type" required onchange="updateQuantity(); showImage();">
+                <option value="">--Select Item--</option>
+                <option value="canopies">Canopies (₦8,000 each)</option>
+                <option value="chairs">Chairs (₦1,800/dozen)</option>
+                <option value="tables">Tables (₦300 each)</option>
+                <option value="chair-covers">Chair Covers (₦150 each)</option>
+                <option value="table-covers">Table Covers (₦300 each)</option>
+                <option value="drums">Drums (₦1,200 each)</option>
+                <option value="cooking-gas-burner">Gas Burner & Cylinder (₦8,000 each)</option>
+            </select><br>
+
+            <label for="quantity" id="quantity-label">Quantity:</label><br>
+            <input type="number" id="quantity" name="Quantity" min="1" required><br>
+
+            <!-- Image Display -->
+            <div id="imageDisplay" class="image-container">
+                <img id="equipmentImage" src="" alt="Select an item to see image">
+            </div>
+
+            <button type="button" onclick="addToReview()">Add to Booking</button>
+
+            <!-- Review Section -->
+            <h3>Your Booking Review</h3>
+            <ul id="reviewList"></ul>
+            <div id="totalCost">
+                <p>Total Amount (excluding logistics): <span id="totalAmount">₦0</span></p>
+            </div>
+            <textarea id="itemsList" name="Items" style="display: none;"></textarea>
+
+            <label for="message">Additional Requests:</label><br>
+            <textarea id="message" name="Additional_Requests" rows="4" cols="30" maxlength="200" placeholder="E.g., preferred color or time"></textarea><br>
+
+            <!-- CAPTCHA -->
+            <label for="captcha">What is 5 + 3?</label><br>
+            <input type="number" id="captcha" name="Captcha" required><br>
+
+            <!-- Hidden Token -->
+            <input type="hidden" id="formToken" name="Form_Token" value="eventease2025">
+
+            <button type="submit" id="submitButton" disabled>Review & Checkout</button>
+        </form>
+
+        <!-- Delivery Options Popup -->
+        <div id="deliveryPopup" class="popup" style="display: none;">
+            <div class="popup-content">
+                <h3>Delivery Options</h3>
+                <p>Do you want logistics? (₦10,000, subject to change based on distance)</p>
+                <label><input type="radio" name="logistics" value="yes" onclick="toggleDeliveryFields(true)"> Yes</label>
+                <label><input type="radio" name="logistics" value="no" onclick="toggleDeliveryFields(false)" checked> No, I’ll pick up</label><br>
+
+                <div id="deliveryFields" style="display: none;">
+                    <label for="city">Select Your City in Ibadan:</label><br>
+                    <select id="city" name="City">
+                        <option value="Apete">Apete</option>
+                        <option value="Bodija">Bodija</option>
+                        <option value="Akobo">Akobo</option>
+                        <option value="Ojoo">Ojoo</option>
+                        <option value="Iwo Road">Iwo Road</option>
+                        <option value="Challenge">Challenge</option>
+                        <option value="Ring Road">Ring Road</option>
+                        <option value="Mokola">Mokola</option>
+                        <option value="Dugbe">Dugbe</option>
+                        <option value="Sango">Sango</option>
+                    </select><br>
+
+                    <label for="address">Delivery Address:</label><br>
+                    <input type="text" id="address" name="Address" placeholder="E.g., 12 Main Street"><br>
+
+                    <label for="deliveryNotes">Additional Delivery Notes:</label><br>
+                    <textarea id="deliveryNotes" name="Delivery_Notes" rows="3" cols="30" placeholder="E.g., near the market"></textarea><br>
+                </div>
+
+                <button onclick="submitToWhatsApp()">Confirm & Pay via WhatsApp</button>
+                <button onclick="closePopup()">Cancel</button>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a></p>
+        <p>Mobile: 07064936343 | 09024296887</p>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Eventease Rental Services, Apete, Awotan, Ibadan<br>
+        Email: <a href="mailto:Awosanyakudus71@gmail.com">Awosanyakudus71@gmail.com</a> | Mobile: 07064936343, 09024296887</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let bookingItems = [];
+        const logisticsFee = 10000;
+        const priceMap = {
+            "canopies": 8000,
+            "chairs": 1800,
+            "tables": 300,
+            "chair-covers": 150,
+            "table-covers": 300,
+            "drums": 1200,
+            "cooking-gas-burner": 8000
+        };
+
+        function updateQuantity() {
+            const items = document.getElementById("items").value;
+            const quantityInput = document.getElementById("quantity");
+            const quantityLabel = document.getElementById("quantity-label");
+
+            quantityInput.value = "";
+            if (items === "canopies") {
+                quantityInput.min = 1;
+                quantityInput.max = 10;
+                quantityLabel.textContent = "Quantity (units):";
+            } else if (items === "chairs") {
+                quantityInput.min = 1;
+                quantityInput.max = 30;
+                quantityLabel.textContent = "Quantity (dozens):";
+            } else if (items === "tables") {
+                quantityInput.min = 1;
+                quantityInput.max = 50;
+                quantityLabel.textContent = "Quantity (units):";
+            } else if (items === "chair-covers") {
+                quantityInput.min = 100;
+                quantityInput.max = 500;
+                quantityLabel.textContent = "Quantity (units):";
+            } else if (items === "table-covers") {
+                quantityInput.min = 1;
+                quantityInput.max = 10;
+                quantityLabel.textContent = "Quantity (units):";
+            } else if (items === "drums") {
+                quantityInput.min = 1;
+                quantityInput.max = 10;
+                quantityLabel.textContent = "Quantity (units):";
+            } else if (items === "cooking-gas-burner") {
+                quantityInput.min = 1;
+                quantityInput.max = 10;
+                quantityLabel.textContent = "Quantity (units):";
+            } else {
+                quantityInput.min = 1;
+                quantityInput.max = "";
+                quantityLabel.textContent = "Quantity:";
+            }
+        }
+
+        function showImage() {
+            const item = document.getElementById("items").value;
+            const img = document.getElementById("equipmentImage");
+            const imageDisplay = document.getElementById("imageDisplay");
+
+            const imageMap = {
+                "canopies": "https://images.unsplash.com/photo-1560439517-e960a3ef5019",
+                "chairs": "https://images.unsplash.com/photo-1591115466960-4e8e624be9e0",
+                "tables": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+                "chair-covers": "https://images.unsplash.com/photo-1600585154526-990dced4366e",
+                "table-covers": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c",
+                "drums": "https://images.unsplash.com/photo-1513530534585-8b7f39a62b39",
+                "cooking-gas-burner": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c"
+            };
+
+            if (item && imageMap[item]) {
+                img.src = imageMap[item];
+                img.alt = Image of ${item.replace(/-/g, " ")};
+                imageDisplay.style.display = "block";
+                imageDisplay.classList.remove("fade-in");
+                void imageDisplay.offsetWidth;
+                imageDisplay.classList.add("fade-in");
+            } else {
+                img.src = "";
+                img.alt = "Select an item to see image";
+                imageDisplay.style.display = "none";
+            }
+        }
+
+        function addToReview() {
+            const item = document.getElementById("items").value;
+            const quantity = parseInt(document.getElementById("quantity").value);
+            if (!item || !quantity || quantity < 1 || (quantity > document.getElementById("quantity").max && document.getElementById("quantity").max)) {
+                alert("Please select an item and a valid quantity within the allowed range.");
+                return;
+            }
+
+            const unitLabel = item === "chairs" ? "dozen" : "unit";
+            const price = priceMap[item] * quantity;
+            const itemText = ${quantity} ${unitLabel}${quantity > 1 ? "s" : ""} of ${item.replace(/-/g, " ")} - ₦${price.toLocaleString()};
+            bookingItems.push({ item, quantity, price, text: itemText });
+
+            updateReviewList();
+            document.getElementById("quantity").value = "";
+            document.getElementById("items").value = "";
+            document.getElementById("submitButton").disabled = false;
+        }
+
+        function removeItem(index) {
+            bookingItems.splice(index, 1);
+            updateReviewList();
+            if (bookingItems.length === 0) {
+                document.getElementById("submitButton").disabled = true;
+            }
+        }
+
+        function updateReviewList() {
+            const reviewList = document.getElementById("reviewList");
+            const itemsListTextarea = document.getElementById("itemsList");
+            const totalAmountSpan = document.getElementById("totalAmount");
+            reviewList.innerHTML = "";
+
+            let total = 0;
+            bookingItems.forEach((booking, index) => {
+                const li = document.createElement("li");
+                li.textContent = booking.text;
+                const removeButton = document.createElement("button");
+                removeButton.textContent = "Remove";
+                removeButton.onclick = () => removeItem(index);
+                li.appendChild(removeButton);
+                reviewList.appendChild(li);
+                total += booking.price;
+            });
+
+            itemsListTextarea.value = bookingItems.map(b => b.text).join("\n");
+            totalAmountSpan.textContent = ₦${total.toLocaleString()};
+        }
+
+        function validateAndShowDelivery(event) {
+            event.preventDefault();
+            const captcha = document.getElementById("captcha").value;
+            const token = document.getElementById("formToken").value;
+            const name = document.getElementById("name").value;
+
+            if (parseInt(captcha) !== 8) {
+                alert("Incorrect answer to 5 + 3. Please try again.");
+                return false;
+            }
+
+            if (token !== "eventease2025") {
+                alert("Form submission error. Please reload the page.");
+                return false;
+            }
+
+            if (!/^[A-Za-z\s]{2,50}$/.test(name)) {
+                alert("Name must be 2-50 letters and spaces only.");
+                return false;
+            }
+
+            if (bookingItems.length === 0) {
+                alert("Please add at least one item to your booking.");
+                return false;
+            }
+
+            document.getElementById("deliveryPopup").style.display = "block";
+            return false;
+        }
+
+        function toggleDeliveryFields(show) {
+            document.getElementById("deliveryFields").style.display = show ? "block" : "none";
+        }
+
+        function submitToWhatsApp() {
+            const name = document.getElementById("name").value;
+            const date = document.getElementById("date").value;
+            const message = document.getElementById("message").value;
+            const logistics = document.querySelector('input[name="logistics"]:checked').value;
+            const city = document.getElementById("city").value;
+            const address = document.getElementById("address").value;
+            const deliveryNotes = document.getElementById("deliveryNotes").value;
+
+            let total = bookingItems.reduce((sum, b) => sum + b.price, 0);
+            let logisticsText = "No logistics (pickup)";
+            if (logistics === "yes") {
+                total += logisticsFee;
+                logisticsText = Logistics (₦${logisticsFee.toLocaleString()}, subject to change based on distance) to ${city}, ${address}${deliveryNotes ? " - " + deliveryNotes : ""};
+            }
+
+            let whatsappMessage = Booking from ${name}\nEvent Date: ${date}\nItems:\n${bookingItems.map(b => b.text).join("\n")}\n${logisticsText}\nTotal Amount: ₦${total.toLocaleString()}\nAdditional Requests: ${message || "None"};
+            let whatsappUrl = https://wa.me/2347064936343?text=${encodeURIComponent(whatsappMessage)};
+
+            window.open(whatsappUrl, "_blank");
+            closePopup();
+        }
+
+        function closePopup() {
+            document.getElementById("deliveryPopup").style.display = "none";
+            document.getElementById("address").value = "";
+            document.getElementById("deliveryNotes").value = "";
+            document.querySelector('input[name="logistics"][value="no"]').checked = true;
+            toggleDeliveryFields(false);
+        }
+    </script>
+</body>
+</html>
