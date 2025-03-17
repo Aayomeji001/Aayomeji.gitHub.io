@@ -96,6 +96,13 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Style immediate total */
+#immediateTotal {
+    color: #006400;
+    font-weight: 600;
+    margin: 5px 0;
+}
+
 /* Style the image display */
 .image-container {
     margin: 20px auto;
@@ -150,7 +157,7 @@ button:disabled {
     color: #006400;
 }
 
-/* Style the popup */
+/* Style the checkout popup */
 .popup {
     position: fixed;
     top: 0;
@@ -194,8 +201,6 @@ footer {
     color: #FFFFFF;
     text-align: center;
     padding: 20px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
     font-size: 14px;
 }
